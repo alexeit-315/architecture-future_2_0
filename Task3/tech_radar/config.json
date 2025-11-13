@@ -1,0 +1,123 @@
+{
+    "basePath": "/",
+    "baseUrl": "",
+    "editUrl": "",
+    "logoFile": "logo.svg",
+    "jsFile": "",
+    "toggles": {
+      "showChart": true,
+      "showTagFilter": true,
+      "showQuadrantList": true,
+      "showEmptyRings": false
+    },
+    "sections": ["radar", "tags", "list"],
+    "colors": {
+      "foreground": "#dae7f4",
+      "background": "#6378ea",
+      "highlight": "#73a5d4",
+      "content": "#fff",
+      "text": "#575757",
+      "link": "#bc6c25",
+      "border": "rgba(255, 255, 255, 0.1)",
+      "tag": "rgba(255, 255, 255, 0.1)"
+    },
+    "quadrants": [
+      {
+        "id": "platforms-and-infras",
+        "title": "Платформа и инфраструктура",
+        "description": "",
+        "color": "#041367"
+      },      {
+        "id": "security-and-data",
+        "title": "Безопасность и данные",
+        "description": "",
+        "color": "#9ba9f5"
+      },
+      {
+        "id": "development-and-integrations",
+        "title": "Разработка и интеграция",
+        "description": "",
+        "color": "#404e9c"
+      },
+      {
+        "id": "analytics-and-observability",
+        "title": "Аналитика и наблюдаемость",
+        "description": "",
+        "color": "#21349a"
+      }
+    ],
+    "rings": [
+      {
+        "id": "adopt",
+        "title": "Активно используем",
+        "description": "",
+        "color": "#588157",
+        "radius": 0.5,
+        "strokeWidth": 5
+      },
+      {
+        "id": "trial",
+        "title": "Пробуем",
+        "description": "",
+        "color": "#457b9d",
+        "radius": 0.69,
+        "strokeWidth": 3
+      },
+      {
+        "id": "assess",
+        "title": "Изучаем",
+        "description": "",
+        "color": "#bc6c25",
+        "radius": 0.85,
+        "strokeWidth": 2
+      },
+      {
+        "id": "hold",
+        "title": "Выводим",
+        "description": "",
+        "color": "#d62828",
+        "radius": 1,
+        "strokeWidth": 0.75
+      }
+    ],
+    "flags": {
+      "new": {
+        "color": "#f1235a",
+        "title": "Новое",
+        "titleShort": "N",
+        "description": "Новое в этой версии"
+      },
+      "changed": {
+        "color": "#40a7d1",
+        "title": "Изменено",
+        "titleShort": "C",
+        "description": "Недавно менялось"
+      },
+      "default": {
+        "description": "Нет изменений"
+      }
+    },
+    "chart": {
+      "size": 800,
+      "blipSize": 12
+    },
+    "social": [
+    ],
+    "imprint": "",
+    "labels": {
+      "title": "Технический радар. Спринт 11. Компания «Будущее 2.0»",
+      "imprint": "",
+      "quadrant": "Технические области",
+      "quadrantOverview": "Подробнее",
+      "zoomIn": "Приблизить",
+      "filterByTag": "Отфильтровать по тегу",
+      "footer": "Учебный радар в рамках курса Архитектор ПО от Яндекс Практикума",
+      "notUpdated": "Давно не менялось",
+      "notFound": "404",
+      "pageAbout": "Как пользоваться",
+      "pageOverview": "Обзор технологий",
+      "pageSearch": "Поиск",
+      "searchPlaceholder": "Что ищете?",
+      "metaDescription": ""
+    }
+  }
