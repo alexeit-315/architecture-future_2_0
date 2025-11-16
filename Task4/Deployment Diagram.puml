@@ -1,0 +1,118 @@
+    @startuml
+!define RECTANGLE class
+!define COMPONENT component
+
+skinparam {
+  BackgroundColor White
+  ArrowColor #000000
+  ActorBorderColor #000000
+  UsecaseBorderColor #000000
+  ClassBorderColor #000000
+  RectangleBorderColor #000000
+}
+
+skinparam rectangle {
+  BackgroundColor #E6F3FF
+  BorderColor #0066CC
+}
+
+skinparam component {
+  BackgroundColor #FFE6E6
+  BorderColor #CC0000
+}
+
+skinparam database {
+  BackgroundColor #E6FFE6
+  BorderColor #00CC00
+}
+
+title Инфраструктура Yandex Cloud - Зона ru-central1-a
+
+rectangle "Управляется Terraform" {
+  rectangle "VPC Network: 10.0.0.0/16" as vpc {
+    rectangle "Public Subnet: 10.0.1.0/24 \nNAT: Enabled" as public_subnet
+    rectangle "Private Subnet: 10.0.2.0/24 \nNAT: Disabled" as private_subnet
+
+    public_subnet -[hidden]-> private_subnet
+  }
+
+  rectangle "Security Groups" as sg {
+    component "web-sg \n80, 443, 22" as web_sg
+    component "app-sg \n8080, 5432, 22" as app_sg
+    component "db-sg \n5432" as db_sg
+
+    web_sg -[hidden]-> app_sg
+    app_sg -[hidden]-> db_sg
+  }
+
+  rectangle "Виртуальные машины" as vms {
+    component "Web Server \n2 CPU / 4GB RAM \n50GB SSD \nPublic IP" as web_vm
+    component "App Server \n4 CPU / 8GB RAM \n100GB SSD \nPrivate IP" as app_vm
+    component "DB Server \n4 CPU / 16GB RAM \n500GB SSD \nPrivate IP" as db_vm
+
+    web_vm -[hidden]-> app_vm
+    app_vm -[hidden]-> db_vm
+  }
+
+  rectangle "Диски" as disks {
+    database "Data Disk \n1TB SSD \n(secondary)" as data_disk
+    database "Backup Disk \n2TB HDD \n(secondary)" as backup_disk
+
+    data_disk -[hidden]-> backup_disk
+  }
+
+  component "Service Account \ncompute-sa" as sa
+
+  ' Connections
+  public_subnet --> web_vm : contains
+  private_subnet --> app_vm : contains
+  private_subnet --> db_vm : contains
+
+  web_sg --> web_vm : protects
+  app_sg --> app_vm : protects
+  db_sg --> db_vm : protects
+
+  data_disk --> db_vm : attached
+  backup_disk --> db_vm : attached
+
+  sa --> web_vm : used by
+  sa --> app_vm : used by
+  sa --> db_vm : used by
+}
+
+rectangle "Развертывается вручную" as manual {
+  component "Настройка приложений" as apps
+  component "Docker/Kubernetes" as docker
+  component "Мониторинг" as monitoring
+  component "CI/CD" as cicd
+  component "Резервное копирование" as backup
+  component "Настройка СУБД" as db_setup
+
+  apps -[hidden]-> docker
+  docker -[hidden]-> monitoring
+  monitoring -[hidden]-> cicd
+  cicd -[hidden]-> backup
+  backup -[hidden]-> db_setup
+}
+
+' Network flows
+web_vm --> app_vm : HTTP/8080
+app_vm --> db_vm : PostgreSQL/5432
+
+note right of web_vm
+  Ubuntu 22.04 LTS
+  Platform: standard-v3
+end note
+
+note right of app_vm
+  Ubuntu 22.04 LTS
+  Platform: standard-v3
+end note
+
+note right of db_vm
+  Ubuntu 22.04 LTS
+  Platform: standard-v3
+  + Secondary disks
+end note
+
+@enduml
