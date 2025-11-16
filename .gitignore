@@ -1,0 +1,17 @@
+/tech_radar/
+/tech_radar.zip
+/package-lock.json
+/Task3/tech_radar/.techradar/
+/Task3/tech_radar/build/
+/Task3/tech_radar/node_modules/
+/Task3/tech_radar/public/
+/Task3/tech_radar/about.md
+/Task3/tech_radar/custom.css
+/Task3/tech_radar/package.json
+/Task3/tech_radar/package-lock.json
+/Task4/.terraform/
+/Task4/scripts/
+/Task4/.env.auto.tfvars
+/Task4/credentials.auto.tfvars
+/Task4/sa-key.json
+
